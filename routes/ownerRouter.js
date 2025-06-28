@@ -56,7 +56,7 @@ router.post('/register', (req, res) => {
                     const savedOwner = await newOwner.save();
                     let token = jwt.sign({ email, id: newOwner._id }, "secret");
                     res.cookie("token", token);
-                    res.redirect("/product"); // Redirect to product management
+                    res.redirect("/owner"); // Redirect to product management
                 } catch (err) {
                     res.status(500).json({ message: "Error saving owner", error: err.message });
                 }
@@ -78,7 +78,7 @@ router.post('/login', async (req, res) => {
                 if (result) {
                     let token = jwt.sign({ email, id: owner._id }, "secret");
                     res.cookie("token", token);
-                    res.redirect("/product");
+                    res.redirect("/owner");
                 } else {
                     res.send("Invalid credentials");
                 }
