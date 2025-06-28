@@ -23,10 +23,25 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-
+            text-decoration: none;
         }
         .cart-icon:hover {
             background-color: #1976d2;
+        }
+        .logout-btn {
+            position: absolute;
+            top: 10px;
+            right: 100px;
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
         }
         .cart-icon img {
             width: 24px;
@@ -90,6 +105,9 @@
     </style>
 </head>
 <body>
+    <a class="logout-btn" href="/user/logout">
+        <span>Logout</span>
+    </a>
     <a class="cart-icon" href="/user/cart">
         <!-- <img src="/cart.jpg" alt="Cart" /> -->
         <span>Cart</span>
