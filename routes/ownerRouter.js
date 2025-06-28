@@ -20,11 +20,20 @@ const isLoggedIn = (req, res, next) => {
     }
 };
 
+// Separate login and signup routes
+router.get("/login", (req, res) => {
+    res.render("owner-login");
+});
+
+router.get("/signup", (req, res) => {
+    res.render("owner-signup");
+});
+
 // Get all owners
 router.get('/', async (req, res) => {
     try {
         const owners = await Owner.find();
-        res.render("master");
+        res.render("owner-login"); // Changed to redirect to owner login instead of master
     } catch (error) {
         res.status(500).json({ message: "Error fetching owners", error: error.message });
     }
@@ -47,7 +56,7 @@ router.post('/register', (req, res) => {
                     const savedOwner = await newOwner.save();
                     let token = jwt.sign({ email, id: newOwner._id }, "secret");
                     res.cookie("token", token);
-                    res.redirect("/");
+                    res.redirect("/product"); // Redirect to product management
                 } catch (err) {
                     res.status(500).json({ message: "Error saving owner", error: err.message });
                 }
@@ -83,6 +92,11 @@ router.post('/login', async (req, res) => {
 // Example usage of isLoggedIn middleware
 router.get('/protected', isLoggedIn, (req, res) => {
     res.send("This is a protected route. You are logged in.");
+});
+
+router.get("/logout", (req, res) => {
+    res.clearCookie("token");
+    res.redirect("/");
 });
 
 module.exports = router;

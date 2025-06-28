@@ -17,10 +17,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.redirect("/user");
+  res.render("landing");
 });
 app.use("/owner", ownerRouter);
 app.use("/product", productRouter);
 app.use("/user", userRouter);
 // app.use("/shop",index)
-app.listen(5000);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

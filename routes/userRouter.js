@@ -35,10 +35,18 @@ router.get("/userpage",isLoggedIn,async(req,res)=>{
   
 })
 
+router.get('/login', (req, res) => {
+    res.render("user-login");
+});
+
+router.get('/signup', (req, res) => {
+    res.render("user-signup");
+});
+
 router.get('/', async (req, res) => {
     try {
         const users = await User.find();
-        res.render("index")
+        res.render("user-login") // Changed to redirect to user login instead of index
     } catch (error) {
         res.status(500).json({ message: "Error fetching users", error: error.message });
     }
@@ -167,7 +175,7 @@ router.post('/register',  async (req, res) => {
                     const savedUser = await newUser.save();
                     let token=jwt.sign({email,id:newUser._id},"secret")
                     res.cookie("token",token)
-                    res.render("index")
+                    res.redirect("/user/userpage") // Redirect to user dashboard instead of index
 
                     // res.status(201).json(savedUser);
                 }
@@ -203,6 +211,10 @@ router.post("/login",async (req,res)=>{
 
 })
 
+router.get("/logout", (req, res) => {
+    res.clearCookie("token");
+    res.redirect("/");
+});
 
 
 module.exports = router;
