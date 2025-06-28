@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .cart-icon {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            /* display: flex; */
+            align-items: center;
+            background-color: #2196f3;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+        }
+        .cart-icon:hover {
+            background-color: #1976d2;
+        }
+        .cart-icon img {
+            width: 24px;
+            margin-right: 8px;
+        }
+        .sidebar {
+            width: 200px;
+            height: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .main-content {
+            flex-grow: 0.8;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            background-color: #ffcc00;
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .product-card .price {
+            background-color: #ff6666;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+        }
+           
+        /* ...existing code... */
+        .product-card .cart {
+            background-color: #2196f3; 
+            color: #fff;             
+            padding: 10px;           
+            border-radius: 8px;      
+            float: right;             
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 5px;
+        }
+        .product-card .cart:hover {
+            background-color: #1976d2; /* Slightly darker on hover */
+        }
+        /* ...existing code... */
+
+    </style>
+</head>
+<body>
+    <a class="cart-icon" href="/user/cart">
+        <!-- <img src="/cart.jpg" alt="Cart" /> -->
+        <span>Cart</span>
+    </a>
+    <div class="sidebar" >
+        <h2>Home Shop        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title> Online Store</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    display: flex;
+                    margin: 0;
+                    padding: 0;
+                    min-height: 100vh; /* Ensure body covers full viewport height */
+                }
+                .cart-icon {
+                    position: absolute;
+                    top: 10px;
+                    right: 20px;
+                    align-items: center;
+                    background-color: #2196f3;
+                    color: #fff;
+                    padding: 10px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+                .cart-icon:hover {
+                    background-color: #1976d2;
+                }
+                .cart-icon img {
+                    width: 24px;
+                    margin-right: 8px;
+                }
+                .sidebar {
+                    width: 200px;
+                    min-height: 100vh; /* Use viewport height instead of percentage */
+                    padding: 20px;
+                    background-color: #f4f4f4;
+                    position: sticky; /* Keep sidebar in place when scrolling */
+                    top: 0;
+                    align-self: flex-start; /* Align to top of flex container */
+                }
+                .sidebar h2 {
+                    margin-top: 0;
+                }
+                .sidebar ul {
+                    list-style-type: none;
+                    padding: 0;
+                }
+                .sidebar ul li {
+                    margin-bottom: 10px;
+                }
+                .main-content {
+                    flex-grow: 1;
+                    padding: 20px;
+                    margin-top: 30px;
+                }
+            </style>
+        </head>
+      </h2>
+        <div>
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+                <option value="popular">Popular</option>
+                <option value="desc">Price(higher to lower)</option>
+                <option value="aesc">Price(lower to higher)</option>
+            </select>
+        </div>
+        <ul>
+            <li>New Collection</li>
+            <li>All Products</li>
+            <li>Discounted Products</li>
+        </ul>
+        <h3>Filter by:</h3>
+        <ul>
+            <li>Availability</li>
+            <li>Discount</li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <div class="product-grid">
+            <% products.forEach(element => {%>
+                
+                <div class="product-card">
+                    <div class="product-name"><%=element.name%></div>
+                    <div class="price">₹ <%=element.price%></div>
+                    <a class="cart" href="/user/cart/<%=element._id%>">Add to cart</a>
+                </div>
+                
+                
+            <% }); %> 
+    
+            
+        </div>
+    </div>
+    <script src="/sort.js"></script>
+</body>
+</html>
