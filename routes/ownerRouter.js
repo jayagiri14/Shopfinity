@@ -29,6 +29,11 @@ router.get("/signup", (req, res) => {
     res.render("owner-signup");
 });
 
+// Owner dashboard route
+router.get("/dashboard", isLoggedIn, (req, res) => {
+    res.render("owner");
+});
+
 // Get all owners
 router.get('/', async (req, res) => {
     try {
@@ -56,7 +61,7 @@ router.post('/register', (req, res) => {
                     const savedOwner = await newOwner.save();
                     let token = jwt.sign({ email, id: newOwner._id }, "secret");
                     res.cookie("token", token);
-                    res.redirect("/owner"); // Redirect to product management
+                    res.redirect("/owner/dashboard"); // Redirect to dashboard route
                 } catch (err) {
                     res.status(500).json({ message: "Error saving owner", error: err.message });
                 }
@@ -78,7 +83,7 @@ router.post('/login', async (req, res) => {
                 if (result) {
                     let token = jwt.sign({ email, id: owner._id }, "secret");
                     res.cookie("token", token);
-                    res.redirect("/owner");
+                    res.redirect("/owner/dashboard"); // Redirect to dashboard route
                 } else {
                     res.send("Invalid credentials");
                 }
