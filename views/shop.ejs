@@ -10,12 +10,12 @@
             display: flex;
             margin: 0;
             padding: 0;
+            min-height: 100vh; /* Ensure body covers full viewport height */
         }
         .cart-icon {
             position: absolute;
             top: 10px;
             right: 20px;
-            /* display: flex; */
             align-items: center;
             background-color: #2196f3;
             color: #fff;
@@ -23,25 +23,9 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            text-decoration: none;
         }
         .cart-icon:hover {
             background-color: #1976d2;
-        }
-        .logout-btn {
-            position: absolute;
-            top: 10px;
-            right: 100px;
-            background-color: #f44336;
-            color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-        }
-        .logout-btn:hover {
-            background-color: #d32f2f;
         }
         .cart-icon img {
             width: 24px;
@@ -49,9 +33,12 @@
         }
         .sidebar {
             width: 200px;
-            height: 100%;
+            min-height: 100vh; /* Use viewport height instead of percentage */
             padding: 20px;
             background-color: #f4f4f4;
+            position: sticky; /* Keep sidebar in place when scrolling */
+            top: 0;
+            align-self: flex-start; /* Align to top of flex container */
         }
         .sidebar h2 {
             margin-top: 0;
@@ -64,7 +51,7 @@
             margin-bottom: 10px;
         }
         .main-content {
-            flex-grow: 0.8;
+            flex-grow: 1;
             padding: 20px;
             margin-top: 30px;
         }
@@ -74,19 +61,40 @@
             gap: 20px;
         }
         .product-card {
-            background-color: #ffcc00;
+            background-color: #fff;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
         .product-card .price {
             background-color: #ff6666;
             color: white;
             padding: 10px;
             margin-top: 10px;
+            border-radius: 4px;
         }
-           
-        /* ...existing code... */
+        .product-card .discount {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px;
+            margin-top: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
         .product-card .cart {
             background-color: #2196f3; 
             color: #fff;             
@@ -100,8 +108,6 @@
         .product-card .cart:hover {
             background-color: #1976d2; /* Slightly darker on hover */
         }
-        /* ...existing code... */
-
     </style>
 </head>
 <body>
@@ -198,14 +204,21 @@
     <div class="main-content">
         <div class="product-grid">
             <% products.forEach(element => {%>
-                
                 <div class="product-card">
-                    <div class="product-name"><%=element.name%></div>
-                    <div class="price">₹ <%=element.price%></div>
-                    <a class="cart" href="/user/cart/<%=element._id%>">Add to cart</a>
+                    <% if (element.image) { %>
+                        <img src="/product/image/<%= element._id %>" alt="<%= element.name %>" class="product-image" />
+                    <% } else { %>
+                        <div class="product-image" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666;">
+                            No Image
+                        </div>
+                    <% } %>
+                    <div class="product-name"><%= element.name %></div>
+                    <div class="price">₹ <%= element.price %></div>
+                    <% if (element.discount > 0) { %>
+                        <div class="discount">Discount: <%= element.discount %>%</div>
+                    <% } %>
+                    <a class="cart" href="/user/cart/<%= element._id %>">Add to cart</a>
                 </div>
-                
-                
             <% }); %> 
     
             
