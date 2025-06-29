@@ -175,10 +175,12 @@
       </h2>
         <div>
             <label for="sort">Sort by:</label>
-            <select id="sort">
-                <option value="popular">Popular</option>
-                <option value="desc">Price(higher to lower)</option>
-                <option value="aesc">Price(lower to higher)</option>
+            <select id="sort" onchange="handleSortChange(this.value)">
+                <option value="newest" <%= currentSort === 'newest' ? 'selected' : '' %>>Newest First</option>
+                <option value="price_desc" <%= currentSort === 'price_desc' ? 'selected' : '' %>>Price (High to Low)</option>
+                <option value="price_asc" <%= currentSort === 'price_asc' ? 'selected' : '' %>>Price (Low to High)</option>
+                <option value="name_asc" <%= currentSort === 'name_asc' ? 'selected' : '' %>>Name (A-Z)</option>
+                <option value="name_desc" <%= currentSort === 'name_desc' ? 'selected' : '' %>>Name (Z-A)</option>
             </select>
         </div>
         <ul>
