@@ -3,42 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Online Store</title>
+    <title>Online Store</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Ensure body covers full viewport height */
+            min-height: 100vh;
+            position: relative;
         }
-        .cart-icon {
-            position: absolute;
+        .top-nav {
+            position: fixed;
             top: 10px;
             right: 20px;
-            align-items: center;
-            background-color: #2196f3;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        .logout-btn {
+            background-color: #f44336;
             color: #fff;
-            padding: 10px;
+            padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+        .cart-icon {
+            background-color: #2196f3;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
         }
         .cart-icon:hover {
             background-color: #1976d2;
         }
-        .cart-icon img {
-            width: 24px;
-            margin-right: 8px;
-        }
         .sidebar {
             width: 200px;
-            min-height: 100vh; /* Use viewport height instead of percentage */
+            min-height: 100vh;
             padding: 20px;
             background-color: #f4f4f4;
-            position: sticky; /* Keep sidebar in place when scrolling */
+            position: sticky;
             top: 0;
-            align-self: flex-start; /* Align to top of flex container */
+            align-self: flex-start;
         }
         .sidebar h2 {
             margin-top: 0;
@@ -52,8 +68,7 @@
         }
         .main-content {
             flex-grow: 1;
-            padding: 20px;
-            margin-top: 30px;
+            padding: 60px 20px 20px 20px; /* Added top padding for fixed nav */
         }
         .product-grid {
             display: grid;
@@ -100,85 +115,31 @@
             color: #fff;             
             padding: 10px;           
             border-radius: 8px;      
-            float: right;             
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 5px;
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
         }
         .product-card .cart:hover {
-            background-color: #1976d2; /* Slightly darker on hover */
+            background-color: #1976d2;
         }
     </style>
 </head>
 <body>
-    <a class="logout-btn" href="/user/logout">
-        <span>Logout</span>
-    </a>
-    <a class="cart-icon" href="/user/cart">
-        <!-- <img src="/cart.jpg" alt="Cart" /> -->
-        <span>Cart</span>
-    </a>
-    <div class="sidebar" >
-        <h2>Home Shop        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title> Online Store</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    display: flex;
-                    margin: 0;
-                    padding: 0;
-                    min-height: 100vh; /* Ensure body covers full viewport height */
-                }
-                .cart-icon {
-                    position: absolute;
-                    top: 10px;
-                    right: 20px;
-                    align-items: center;
-                    background-color: #2196f3;
-                    color: #fff;
-                    padding: 10px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-                .cart-icon:hover {
-                    background-color: #1976d2;
-                }
-                .cart-icon img {
-                    width: 24px;
-                    margin-right: 8px;
-                }
-                .sidebar {
-                    width: 200px;
-                    min-height: 100vh; /* Use viewport height instead of percentage */
-                    padding: 20px;
-                    background-color: #f4f4f4;
-                    position: sticky; /* Keep sidebar in place when scrolling */
-                    top: 0;
-                    align-self: flex-start; /* Align to top of flex container */
-                }
-                .sidebar h2 {
-                    margin-top: 0;
-                }
-                .sidebar ul {
-                    list-style-type: none;
-                    padding: 0;
-                }
-                .sidebar ul li {
-                    margin-bottom: 10px;
-                }
-                .main-content {
-                    flex-grow: 1;
-                    padding: 20px;
-                    margin-top: 30px;
-                }
-            </style>
-        </head>
-      </h2>
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <a class="logout-btn" href="/user/logout">
+            <span>Logout</span>
+        </a>
+        <a class="cart-icon" href="/user/cart">
+            <span>Cart</span>
+        </a>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Home Shop</h2>
         <div>
             <label for="sort">Sort by:</label>
             <select id="sort" onchange="handleSortChange(this.value)">
@@ -201,6 +162,7 @@
         </ul>
     </div>
     
+    <!-- Main Content -->
     <div class="main-content">
         <div class="product-grid">
             <% products.forEach(element => {%>
@@ -219,11 +181,10 @@
                     <% } %>
                     <a class="cart" href="/user/cart/<%= element._id %>">Add to cart</a>
                 </div>
-            <% }); %> 
-    
-            
+            <% }); %>
         </div>
     </div>
+    
     <script src="/sort.js"></script>
 </body>
 </html>
