@@ -28,12 +28,32 @@ const isLoggedIn=async (req,res,next)=>{
 
 
 router.get("/userpage",isLoggedIn,async(req,res)=>{
-    let products=await Product.find()
-    // console.log(products)
-
-    res.render("shop",{products})
-  
-})
+    try {
+        const { sort } = req.query;
+        let sortOption = {};
+        
+        // Handle different sorting options
+        if (sort === 'price_asc') {
+            sortOption = { price: 1 }; // Ascending
+        } else if (sort === 'price_desc') {
+            sortOption = { price: -1 }; // Descending
+        } else if (sort === 'name_asc') {
+            sortOption = { name: 1 }; // Name A-Z
+        } else if (sort === 'name_desc') {
+            sortOption = { name: -1 }; // Name Z-A
+        } else if (sort === 'newest') {
+            sortOption = { createdAt: -1 }; // Newest first
+        } else {
+            sortOption = { createdAt: -1 }; // Default: newest first
+        }
+        
+        let products = await Product.find().sort(sortOption);
+        res.render("shop", { products, currentSort: sort || 'newest' });
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).send("Error loading products");
+    }
+});
 
 router.get('/login', (req, res) => {
     res.render("user-login");
